@@ -12,9 +12,10 @@
 }
 button {
   color: @font-primary;
-  background: @button-color;
+  background: @btn-color;
   padding: 4px;
   border: none;
+
 }
 label {
   padding: 4px;

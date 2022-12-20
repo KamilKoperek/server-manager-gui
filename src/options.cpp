@@ -74,7 +74,7 @@ void open_options_windows() {
   settings_item theme;
 
   // theme.label = &get_config("theme")[0];
-  theme.label = "Theme:             ";
+  theme.label = "Theme:";
   theme.show();
 
   gchar *themes[2][3] = {{"Dark", "Light", "Debug"},

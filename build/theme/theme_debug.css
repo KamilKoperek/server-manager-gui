@@ -4,7 +4,7 @@
 @define-color btn-color-focus #d0d0d0;
 @define-color btn-color-active #909090;
 @define-color font-primary white;
-@define-color font-secondary;
+@define-color font-secondary black;
 
   window {
   background-color: @bg-color;
