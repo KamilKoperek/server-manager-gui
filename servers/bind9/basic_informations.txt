@@ -1,0 +1,4 @@
+NAME Bind9
+SERVICENAME bind9
+TYPE dhcp
+DESCRIPTION basic DHCP server

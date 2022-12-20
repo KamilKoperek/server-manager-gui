@@ -19,12 +19,12 @@ find_package(Threads REQUIRED)
 
 
 add_library(serversHeader STATIC src/servers.cpp)
-add_library(servers STATIC servers/proftpd.cpp)
+
 
 #add_library(server_proftpd STATIC servers/proftpd.cpp)
 
 target_include_directories(serversHeader PUBLIC src)
-target_include_directories(servers PUBLIC servers)
+
 
 add_executable(ServersManagerGUI src/main.cpp)
 
@@ -35,20 +35,21 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/theme DESTINATION ${CMAKE_CURRENT_BINARY_D
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/icons DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/bash_scripts DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/servers DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/config DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 
 #file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/*
  #    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/src)
-     
+
 #file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/theme.css
 #     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-     
 
-     
+
+
 #find_package(PkgConfig)
 #if (PKG_CONFIG_FOUND)
  # pkg_check_modules(GTK "gtk4")
-  #if (GTK_FOUND)    
+  #if (GTK_FOUND)
    # target_link_libraries(ServersManagerGUI ${GTK_LIBRARIES} serversHeader)
     #target_link_libraries(serversHeader ${GTK_LIBRARIES})
     #add_definitions(${GTK_CFLAGS} ${GTK_CFLAGS_OTHER})

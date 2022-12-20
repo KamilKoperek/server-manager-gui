@@ -1,4 +1,0 @@
-NAME ProFtpD
-SYSNAME proftpd
-TYPE ftp
-DESCRIPTION FTP (File Transport Protocol) Server used for sharing files in network 
