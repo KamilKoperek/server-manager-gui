@@ -28,6 +28,7 @@ target_include_directories(serversHeader PUBLIC src)
 
 add_executable(ServersManagerGUI src/main.cpp)
 
+
 #target_link_libraries(ServersManagerGUI Threads::Threads)
 
 

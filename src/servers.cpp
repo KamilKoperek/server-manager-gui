@@ -6,34 +6,31 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include "config.cpp"
 
-
- void install_callback(GtkWidget *widget, gpointer ptr);
-
+static void install_callback(GtkWidget *widget, gpointer *data);
+int last_id = 0;
+int ids [1024];
 class Server {
 public:
-
   std::string name;
   std::string service_name;
   std::string description;
   std::string dir_path;
   std::string type;
-std::string d="sdf";
+  int id;
+
   GtkWidget *configuration_grid = gtk_grid_new();
 
   bool is_installed() {
-    return (command_result("./" + dir_path +
-                           "/standard_scirpts/check_if_installed.sh")[0] ==
-            '1');
+    return (command_result("./" + dir_path + "/standard_scirpts/check_if_installed.sh")[0] == '1');
   }
 
-
-
   void load() {
-    std::fstream file;
-    file.open(dir_path + (std::string) "/basic_informations.txt",
-              std::ios::in);
 
+
+    std::fstream file;
+    file.open(dir_path + (std::string) "/basic_informations.txt", std::ios::in);
     std::string line;
     std::string attrib = "";
     std::string value = "";
@@ -66,60 +63,60 @@ std::string d="sdf";
     gtk_widget_set_halign(GTK_WIDGET(name_label), GTK_ALIGN_START);
     gtk_style_context_add_class(gtk_widget_get_style_context(name_label), "name-label");
     gtk_grid_attach(GTK_GRID(configuration_grid), GTK_WIDGET(gtk_label_new(str2gchar(description))), 1, 2, 2, 1);
-
-  //  gtk_widget_set_vexpand(GTK_WIDGET(configuration_grid), 1);
     gtk_widget_set_vexpand(GTK_WIDGET(configuration_grid), 1);
-  //gtk_grid_set_baseline_row(GTK_GRID(configuration_grid), 1);
-  //  gtk_grid_set_column_homogeneous(GTK_GRID(configuration_grid), 1);
+
+    id = last_id;
+    ids[id] = id;
 
     if(!is_installed()) {
       gtk_grid_attach(GTK_GRID(configuration_grid), gtk_label_new("Server is not installed"), 1, 3, 1, 1);
       GtkWidget *install_button = gtk_button_new_with_label("Install");
-gchar *d = str2gchar(name.c_str());
-      g_signal_connect((install_button), "clicked", *G_CALLBACK(install_callback), (gpointer *)d);
+      gchar *d = str2gchar(name);
+
+      g_signal_connect(G_OBJECT(install_button), "clicked", G_CALLBACK(install_callback), (gpointer*)&ids[id]);
       gtk_grid_attach(GTK_GRID(configuration_grid), install_button, 2, 3, 1, 1);
-    /*  gtk_grid_attach(
-          GTK_GRID(configuration_grid),
-          GTK_WIDGET(gtk_label_new(str2gchar(is_installed() ? "1" : "0"))), 1, 2,
-          1, 1);*/
+    }else{
+      gtk_grid_attach(GTK_GRID(configuration_grid), gtk_label_new("Server is installed"), 1, 3, 1, 1);
     }
-    /*gtk_grid_attach(
-        GTK_GRID(configuration_grid),
-        GTK_WIDGET(gtk_label_new(str2gchar(is_installed() ? "1" : "0"))), 1, 2,
-        1, 1);*/
+    last_id++;
   }
 
   void install()
   {
-    g_print("fg");
-    command_result(this->name);
+  //  g_print(str2gchar(name));
+  //  g_print(str2gchar(get_config("default_terminal")));
+    system(("./" + dir_path + "/standard_scirpts/install.sh").c_str());
   }
 };
-
- void install_callback(GtkWidget *button, gpointer ptr)
-{
-  gchar *dir = reinterpret_cast<gchar *>(ptr);
-
-g_print(dir);
-//  command_result("./" + ((std::string)*dir) + "/standard_scirpts/install.sh");
-
-//Server *s = reinterpret_cast<Server*>(*ptr);
-//s->install(s);
-}
-
 
 std::vector<Server> servers;
 void loadServers() {
   std::string path = "servers";
-
   for (const auto &entry : std::filesystem::directory_iterator(path)) {
     Server server;
     server.dir_path = entry.path();
     server.load();
     servers.push_back(server);
-    g_print(&(servers[0].type)[0]);
+    g_print(&(server.type)[0]);
   }
   // std::cout << entry.path() << std::endl;
+}
+
+static void install_callback(GtkWidget *widget, gpointer *data) {
+ int number;
+ number = *((int*)data);
+ int i = 0;
+ if(servers[number].id == number) {
+   i = number;
+ } else {
+   for(; i < servers.size(); i++)
+   {
+     if(servers[i].id == number)
+      break;
+   }
+}
+servers[i].install();
+ //g_print(str2gchar(servers[i].name));
 }
 
 /*

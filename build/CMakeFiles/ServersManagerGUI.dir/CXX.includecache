@@ -17,12 +17,10 @@ glib/gstdio.h
 -
 gtk/gtk.h
 -
-config.cpp
-/home/kamil/github/src/config.cpp
-options.cpp
-/home/kamil/github/src/options.cpp
 servers.cpp
 /home/kamil/github/src/servers.cpp
+options.cpp
+/home/kamil/github/src/options.cpp
 
 /home/kamil/github/src/options.cpp
 
@@ -43,6 +41,8 @@ thread
 -
 vector
 -
+config.cpp
+/home/kamil/github/src/config.cpp
 ../servers/proftpd.cpp
 /home/kamil/github/servers/proftpd.cpp
 

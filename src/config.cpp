@@ -8,6 +8,9 @@ std::string get_config (std::string name)
  if(file.is_open())
  {
    file >> result;
+   /*  std::ostringstream ss;
+     ss << file.rdbuf();
+     result = ss.str();*/
  }
  return result;
 }

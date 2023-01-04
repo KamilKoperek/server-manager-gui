@@ -13,9 +13,10 @@ GtkCssProvider *cssProvider;
 
 
 
-#include "config.cpp"
-#include "options.cpp"
+
 #include "servers.cpp"
+#include "options.cpp"
+
 /*
 void serverTypeSelect(GtkWidget *widget, ServerType *clickedType) {
   clickedType->selectServerType();
